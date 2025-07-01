@@ -1,38 +1,89 @@
-.spotify-login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.spotify-bg {
   height: 100vh;
-  background: linear-gradient(135deg, #1db954, #191414);
-  color: white;
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 20% 40%, #25f37322 0%, transparent 70%), 
+              linear-gradient(120deg, #1db954 0%, #191414 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.spotify-abstract-svg {
+  position: absolute;
+  left: 50%; top: 55%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+  width: 680px;
+  max-width: 90vw;
+  filter: blur(0.5px);
+}
+
+.spotify-login-card {
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  top: 18vh;
+  background: rgba(16,23,19,0.77);
+  box-shadow: 0 10px 40px 0 #0005, 0 0px 2px 0 #1db95433;
+  border-radius: 30px;
+  padding: 3.5rem 3.2rem;
+  max-width: 420px;
   text-align: center;
+  backdrop-filter: blur(7px);
 }
 
 .spotify-login-title {
-  font-size: 3rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1.2px;
   margin-bottom: 1rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.spotify-login-description {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  max-width: 600px;
+.spotify-login-icon {
+  font-size: 2.2rem;
+  color: #1ed760;
+}
+
+.spotify-login-desc {
+  color: #c2c2c2;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.16rem;
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
 }
 
 .spotify-connect-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: #1db954;
-  color: white;
+  background: linear-gradient(90deg,#1db954 40%,#1ed760 100%);
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  padding: 14px 50px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
+  box-shadow: 0 3px 16px #1db95440;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  outline: none;
+  transition: box-shadow 0.2s, transform 0.17s;
 }
 
-.spotify-connect-button:hover {
-  background-color: #1ed760;
+.spotify-connect-button:hover, .spotify-connect-button:focus {
+  box-shadow: 0 8px 36px #1ed76088, 0 1px 2px #193;
+  transform: translateY(-3px) scale(1.03);
 }

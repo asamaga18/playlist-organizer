@@ -1,0 +1,85 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: var(--text-main);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+
+.logout-button {
+  background: var(--danger);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #ff3838;
+  transform: scale(1.05);
+}
+
+.source-playlist-section {
+  background: var(--bg-muted);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.playlist-card {
+  background: var(--bg-main);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease, background 0.3s ease;
+  color: var(--text-main);
+}
+
+.playlist-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.back-button {
+  background: #3e3e3e;
+  color: var(--text-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background: #575757;
+  transform: scale(1.05);
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
+  color: var(--text-muted);
+}

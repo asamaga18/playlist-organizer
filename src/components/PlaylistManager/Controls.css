@@ -1,0 +1,59 @@
+.controls-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: var(--bg-muted); /* Soft dark container background */
+  border-radius: 10px;
+  margin: 20px 0;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.controls-button {
+  padding: 15px 30px;
+  color: var(--text-light);
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.controls-skip {
+  background-color: #3e3e3e;
+}
+
+.controls-skip:hover {
+  background-color: #575757;
+  transform: scale(1.05);
+}
+
+.controls-submit {
+  background-color: var(--accent);
+}
+
+.controls-submit:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.controls-submit-disabled {
+  background-color: #555;
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.last-song-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ffa502;
+  color: var(--text-light);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}

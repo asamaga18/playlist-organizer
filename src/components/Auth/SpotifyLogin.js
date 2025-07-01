@@ -1,65 +1,3 @@
-// import React from 'react';
-// import { getSpotifyAuthUrl } from '../../utils/spotifyAuth';
-
-// const SpotifyLogin = () => {
-//   const handleLogin = () => {
-//     console.log('Button clicked - starting PKCE auth process');
-    
-//     const authUrl = getSpotifyAuthUrl();
-    
-//     if (!authUrl) {
-//       alert('Error: Could not generate Spotify auth URL. Check console for details.');
-//       return;
-//     }
-    
-//     console.log('Redirecting to Spotify...');
-//     window.location.href = authUrl;
-//   };
-
-//   return (
-//     <div style={{ 
-//       display: 'flex', 
-//       flexDirection: 'column', 
-//       alignItems: 'center', 
-//       justifyContent: 'center', 
-//       height: '100vh',
-//       background: 'linear-gradient(135deg, #1db954, #191414)',
-//       color: 'white',
-//       fontFamily: 'Arial, sans-serif',
-//       textAlign: 'center'
-//     }}>
-//       <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
-//         🎵 Playlist Organizer
-//       </h1>
-//       <p style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '600px' }}>
-//         Easily distribute songs from one playlist to multiple other playlists. 
-//         Connect with Spotify to get started!
-//       </p>
-//       <button 
-//         onClick={handleLogin}
-//         style={{
-//           padding: '15px 30px',
-//           fontSize: '18px',
-//           backgroundColor: '#1db954',
-//           color: 'white',
-//           border: 'none',
-//           borderRadius: '25px',
-//           cursor: 'pointer',
-//           fontWeight: 'bold',
-//           transition: 'background-color 0.3s'
-//         }}
-//         onMouseOver={(e) => e.target.style.backgroundColor = '#1ed760'}
-//         onMouseOut={(e) => e.target.style.backgroundColor = '#1db954'}
-//       >
-//         Connect with Spotify
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default SpotifyLogin;
-
-
 import React from 'react';
 import { getSpotifyAuthUrl } from '../../utils/spotifyAuth';
 import './SpotifyLogin.css';
@@ -80,20 +18,38 @@ const SpotifyLogin = () => {
   };
 
   return (
-    <div className="spotify-login-container">
-      <h1 className="spotify-login-title">
-        🎵 Playlist Organizer
-      </h1>
-      <p className="spotify-login-description">
-        Easily distribute songs from one playlist to multiple other playlists. 
-        Connect with Spotify to get started!
-      </p>
-      <button 
-        onClick={handleLogin}
-        className="spotify-connect-button"
+    <div className="spotify-bg">
+      <svg
+        className="spotify-abstract-svg"
+        viewBox="0 0 600 600"
+        width="600"
+        height="600"
+        aria-hidden="true"
+        focusable="false"
       >
-        Connect with Spotify
-      </button>
+        
+      </svg>
+      <div className="spotify-login-card">
+        <img
+          src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Black.png"
+          alt="Spotify logo"
+          className="spotify-logo-img"
+          style={{ width: '50px', marginBottom: '1.2rem' }}
+        />
+        <div className="spotify-login-title">
+          Playlist Organizer
+        </div>
+        <div className="spotify-login-desc">
+          Easily distribute songs from one playlist to multiple others.<br />
+          Connect with Spotify to get started!
+        </div>
+        <button 
+          onClick={handleLogin}
+          className="spotify-connect-button"
+        >
+          Connect with Spotify
+        </button>
+      </div>
     </div>
   );
 };
