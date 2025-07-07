@@ -5,6 +5,7 @@ import './PlaylistSelector.css';
 const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name'); // 'name', 'tracks', 'recent'
+  const [imageErrors, setImageErrors] = useState(new Set());
 
   // Filter playlists based on search term
   const filteredPlaylists = playlists.filter(playlist =>
@@ -50,6 +51,10 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
 
   const handleClearAll = () => {
     selectedPlaylists.forEach(id => onPlaylistToggle(id));
+  };
+
+  const handleImageError = (playlistId) => {
+    setImageErrors(prev => new Set(prev).add(playlistId));
   };
 
   const allFilteredSelected = sortedPlaylists.length > 0 && 
@@ -113,6 +118,8 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
         ) : (
           sortedPlaylists.map(playlist => {
             const isSelected = selectedPlaylists.includes(playlist.id);
+            const hasImage = playlist.images?.[0] && !imageErrors.has(playlist.id);
+            
             return (
               <div 
                 key={playlist.id}
@@ -130,12 +137,18 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
                     />
                   </div>
                   
-                  {playlist.images?.[0] && (
+                  {hasImage ? (
                     <img 
                       src={playlist.images[0].url} 
                       alt={playlist.name}
                       className="playlist-image"
+                      onError={() => handleImageError(playlist.id)}
+                      onLoad={() => console.log(`Playlist image loaded for: ${playlist.name}`)}
                     />
+                  ) : (
+                    <div className="playlist-image-placeholder">
+                      🎵
+                    </div>
                   )}
                   
                   <div className="playlist-info">
