@@ -352,3 +352,133 @@
     font-size: 16px;
   }
 }
+
+.curate-btn {
+  background: var(--accent);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 0;
+}
+.curate-btn:hover {
+  background: var(--accent-hover);
+}
+
+.curate-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.curate-modal {
+  background: var(--bg-main);
+  border-radius: 12px;
+  padding: 32px 28px 24px 28px;
+  min-width: 340px;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  color: var(--text-main);
+}
+.curate-modal h2 {
+  margin-top: 0;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.curate-list {
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 18px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.curate-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.curate-item:hover {
+  background: var(--bg-muted);
+}
+.curate-item input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+}
+.curate-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+.curate-img-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1db954, #1ed760);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+.curate-name {
+  flex: 1;
+  font-size: 15px;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.curate-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.curate-save, .curate-clear, .curate-cancel {
+  padding: 8px 18px;
+  border-radius: 7px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.curate-save {
+  background: var(--accent);
+  color: var(--text-light);
+}
+.curate-save:hover {
+  background: var(--accent-hover);
+}
+.curate-clear {
+  background: var(--danger);
+  color: var(--text-light);
+}
+.curate-clear:hover {
+  background: #ff3838;
+}
+.curate-cancel {
+  background: #444;
+  color: var(--text-light);
+}
+.curate-cancel:hover {
+  background: #666;
+}

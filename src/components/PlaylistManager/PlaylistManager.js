@@ -5,6 +5,13 @@ import PlaylistSelector from './PlaylistSelector';
 import Controls from './Controls';
 import './PlaylistManager.css';
 
+function decodeHtmlEntities(str) {
+  if (!str) return '';
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  return txt.value;
+}
+
 const PlaylistManager = ({ token, onLogout }) => {
   const [spotifyApi] = useState(() => new SpotifyAPI(token));
   const [user, setUser] = useState(null);
@@ -18,7 +25,11 @@ const PlaylistManager = ({ token, onLogout }) => {
   const [showSongSelector, setShowSongSelector] = useState(false);
   const [startSongNumber, setStartSongNumber] = useState(1);
   const [songSearchTerm, setSongSearchTerm] = useState('');
+  const [showCurateModal, setShowCurateModal] = useState(false);
+  const [curatedTargetIds, setCuratedTargetIds] = useState([]);
+  const [curateSearch, setCurateSearch] = useState('');
 
+  // Load user and playlists
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -26,7 +37,6 @@ const PlaylistManager = ({ token, onLogout }) => {
           spotifyApi.getCurrentUser(),
           spotifyApi.getUserPlaylists()
         ]);
-        
         setUser(userData);
         setAllPlaylists(userPlaylists);
         setLoading(false);
@@ -38,16 +48,26 @@ const PlaylistManager = ({ token, onLogout }) => {
         setLoading(false);
       }
     };
-
     loadData();
   }, [spotifyApi, onLogout]);
+
+  // When source playlist changes, load curation from localStorage
+  useEffect(() => {
+    if (!sourcePlaylist) return;
+    const key = `curated_targets_${sourcePlaylist.id}`;
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      setCuratedTargetIds(JSON.parse(saved));
+    } else {
+      setCuratedTargetIds([]);
+    }
+  }, [sourcePlaylist]);
 
   const handleSourcePlaylistSelect = async (playlist) => {
     setLoading(true);
     try {
       const tracks = await spotifyApi.getPlaylistTracks(playlist.id);
       const validTracks = tracks.filter(item => item.track && item.track.id);
-      
       setSourcePlaylist(playlist);
       setSourceTracks(validTracks);
       setCurrentTrackIndex(0);
@@ -61,6 +81,33 @@ const PlaylistManager = ({ token, onLogout }) => {
       alert('Error loading playlist tracks. Please try again.');
     }
     setLoading(false);
+  };
+
+  // Curation logic
+  const handleOpenCurate = () => setShowCurateModal(true);
+  const handleCloseCurate = () => setShowCurateModal(false);
+  const handleToggleCurate = (id) => {
+    setCuratedTargetIds(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(pid => pid !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
+  const handleSaveCurate = () => {
+    if (sourcePlaylist) {
+      const key = `curated_targets_${sourcePlaylist.id}`;
+      localStorage.setItem(key, JSON.stringify(curatedTargetIds));
+    }
+    setShowCurateModal(false);
+  };
+  const handleClearCurate = () => {
+    setCuratedTargetIds([]);
+    if (sourcePlaylist) {
+      const key = `curated_targets_${sourcePlaylist.id}`;
+      localStorage.removeItem(key);
+    }
   };
 
   const handleStartFromSong = () => {
@@ -151,6 +198,11 @@ const PlaylistManager = ({ token, onLogout }) => {
     setSongSearchTerm('');
   };
 
+  // Filtered playlists for curation modal
+  const filteredCuratePlaylists = allPlaylists
+    .filter(p => p.id !== sourcePlaylist?.id)
+    .filter(p => p.name.toLowerCase().includes(curateSearch.toLowerCase()));
+
   if (loading) {
     return (
       <div className="container">
@@ -193,16 +245,13 @@ const PlaylistManager = ({ token, onLogout }) => {
                     🎵
                   </div>
                   <div className="playlist-info">
-                    <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: '600' }}>{playlist.name}</h3>
+                    <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: '600' }}>{decodeHtmlEntities(playlist.name)}</h3>
                     <p style={{ margin: '0', color: '#666', fontSize: '14px' }}>
                       {playlist.tracks.total} tracks
                     </p>
                     {playlist.description && (
                       <p style={{ margin: '5px 0 0 0', fontSize: '12px', color: '#888', lineHeight: '1.3' }}>
-                        {playlist.description.length > 80 
-                          ? `${playlist.description.substring(0, 80)}...`
-                          : playlist.description
-                        }
+                        {decodeHtmlEntities(playlist.description)}
                       </p>
                     )}
                   </div>
@@ -324,7 +373,10 @@ const PlaylistManager = ({ token, onLogout }) => {
     processed: processedSongs
   };
   
-  const targetPlaylists = allPlaylists.filter(p => p.id !== sourcePlaylist.id);
+  // Only show curated targets if set, otherwise all except source
+  const targetPlaylists = allPlaylists.filter(
+    p => p.id !== sourcePlaylist?.id && (curatedTargetIds.length === 0 || curatedTargetIds.includes(p.id))
+  );
   const isLastTrack = currentTrackIndex >= sourceTracks.length - 1;
 
   return (
@@ -340,7 +392,54 @@ const PlaylistManager = ({ token, onLogout }) => {
       <button className="back-button" onClick={handleBackToPlaylistSelection}>
         ← Back to Playlist Selection
       </button>
-
+      {/* Curate Playlists Button */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
+        <button className="curate-btn" onClick={handleOpenCurate}>
+          Curate Playlists
+        </button>
+      </div>
+      {/* Curate Modal */}
+      {showCurateModal && (
+        <div className="curate-modal-overlay">
+          <div className="curate-modal">
+            <h2>Curate Target Playlists</h2>
+            <p>Select which playlists you want to show as targets for <b>{sourcePlaylist.name}</b>:</p>
+            <input
+              className="curate-search"
+              type="text"
+              placeholder="Search playlists..."
+              value={curateSearch}
+              onChange={e => setCurateSearch(e.target.value)}
+              style={{ marginBottom: 12, width: '100%' }}
+            />
+            <div className="curate-list">
+              {filteredCuratePlaylists.map(p => (
+                <label key={p.id} className="curate-item">
+                  <input
+                    type="checkbox"
+                    checked={curatedTargetIds.includes(p.id)}
+                    onChange={() => handleToggleCurate(p.id)}
+                  />
+                  {p.images?.[0] ? (
+                    <img src={p.images[0].url} alt={p.name} className="curate-img" />
+                  ) : (
+                    <span className="curate-img-placeholder">🎵</span>
+                  )}
+                  <span className="curate-name">{p.name}</span>
+                </label>
+              ))}
+              {filteredCuratePlaylists.length === 0 && (
+                <div className="curate-no-results">No playlists found.</div>
+              )}
+            </div>
+            <div className="curate-actions">
+              <button onClick={handleSaveCurate} className="curate-save">Save</button>
+              <button onClick={handleClearCurate} className="curate-clear">Clear</button>
+              <button onClick={handleCloseCurate} className="curate-cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
       {currentTrack ? (
         <>
           <SongDisplay 
