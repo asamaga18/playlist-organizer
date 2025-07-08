@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# 🎵 Playlist Organizer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web app for organizing your Spotify playlists, one song at a time.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Spotify Authentication**: Securely log in with your Spotify account using the official API and PKCE flow.
+- **Source Playlist Selection**: Choose any of your playlists as the "source" to organize.
+- **Song-by-Song Review**: Go through each song in your source playlist and decide which other playlists to add it to.
+- **Curated Target Playlists (per source)**: Curate which playlists appear as targets for each source playlist, so you only see the ones you care about for that session.
+- **Playlist Search & Sorting**: Quickly search and sort your playlists when selecting targets.
+- **Hotkeys Sidebar**: (Optional) Save your favorite playlists as "hotkeys" for quick access and one-click adding.
+- **Back Button**: Go back to the previous song and change your decision if you make a mistake.
+- **Start From Any Song**: Start organizing from any song number or search for a song to begin from.
+- **Responsive, Modern UI**: Clean, dark-themed interface with playlist covers, emoji, and smooth controls.
 
-### `npm start`
+## How It Works
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Log in with Spotify**
+2. **Select a source playlist** to organize
+3. **Curate your target playlists** (optional, per source)
+4. **Go through each song**:
+    - See song details and album art
+    - Select which playlists to add it to
+    - Use hotkeys for quick adding (if enabled)
+    - Skip, go back, or add to playlists
+5. **Finish** when all songs are reviewed!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup & Running Locally
 
-### `npm test`
+1. **Clone the repo**
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. **Set up your Spotify API credentials**
+   - Create a `.env` file with your Spotify client ID and redirect URI:
+     ```env
+     REACT_APP_SPOTIFY_CLIENT_ID=your_spotify_client_id
+     REACT_APP_REDIRECT_URI=http://localhost:3000/callback
+     ```
+   - Register your redirect URI in your Spotify Developer Dashboard.
+4. **Start the app**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
+5. **Open [http://localhost:3000](http://localhost:3000)** in your browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
+- React (functional components, hooks)
+- Spotify Web API (OAuth PKCE)
+- Modern CSS (custom properties, flexbox, grid)
 
-### `npm run build`
+## Screenshots
+- Playlist selection with covers
+- Song-by-song review with album art
+- Curate target playlists modal
+- Hotkeys sidebar (if enabled)
+- Responsive controls with Back/Skip/Add
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Customization
+- You can easily change the color scheme, emoji, or add more features (like batch actions or analytics).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+MIT
