@@ -41,10 +41,6 @@ const PlaylistManager = ({ token, onLogout }) => {
         setAllPlaylists(userPlaylists);
         setLoading(false);
       } catch (error) {
-        console.error('Error loading data:', error);
-        if (error.response?.status === 401) {
-          onLogout();
-        }
         setLoading(false);
       }
     };
@@ -77,7 +73,6 @@ const PlaylistManager = ({ token, onLogout }) => {
       setSongSearchTerm('');
       setShowSongSelector(true);
     } catch (error) {
-      console.error('Error loading playlist tracks:', error);
       alert('Error loading playlist tracks. Please try again.');
     }
     setLoading(false);
@@ -169,7 +164,6 @@ const PlaylistManager = ({ token, onLogout }) => {
         alert(`🎉 All done! Processed ${sourceTracks.length} songs from "${sourcePlaylist.name}"`);
       }
     } catch (error) {
-      console.error('Error adding track to playlists:', error);
       alert('Error adding song to playlists. Please try again.');
     }
     

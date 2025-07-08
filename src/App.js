@@ -13,14 +13,12 @@ function App() {
     // Check for stored token
     const storedToken = localStorage.getItem('spotify_token');
     if (storedToken) {
-      console.log('Found stored token');
       setToken(storedToken);
     }
     setLoading(false);
   }, []);
 
   const handleTokenReceived = (newToken) => {
-    console.log('App received token:', newToken ? 'YES' : 'NO');
     setToken(newToken);
     localStorage.setItem('spotify_token', newToken);
   };

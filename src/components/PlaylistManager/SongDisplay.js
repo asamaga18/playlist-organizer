@@ -40,7 +40,6 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
         audio.currentTime = 0;
       }, 15000);
     } catch (error) {
-      console.error('Error playing preview:', error);
       window.open(songData.preview_url, '_blank');
     } finally {
       setAudioLoading(false);

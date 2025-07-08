@@ -150,7 +150,6 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
                       alt={playlist.name}
                       className="playlist-image"
                       onError={() => handleImageError(playlist.id)}
-                      onLoad={() => console.log(`Playlist image loaded for: ${playlist.name}`)}
                     />
                   ) : (
                     <div className="playlist-image-placeholder">

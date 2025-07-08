@@ -4,7 +4,6 @@ import './SpotifyLogin.css';
 
 const SpotifyLogin = () => {
   const handleLogin = () => {
-    console.log('Button clicked - starting PKCE auth process');
     
     const authUrl = getSpotifyAuthUrl();
     
@@ -13,7 +12,6 @@ const SpotifyLogin = () => {
       return;
     }
     
-    console.log('Redirecting to Spotify...');
     window.location.href = authUrl;
   };
 
