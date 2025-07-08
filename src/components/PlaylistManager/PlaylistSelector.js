@@ -2,6 +2,13 @@
 import React, { useState } from 'react';
 import './PlaylistSelector.css';
 
+function decodeHtmlEntities(str) {
+  if (!str) return '';
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  return txt.value;
+}
+
 const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('name'); // 'name', 'tracks', 'recent'
@@ -152,7 +159,7 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
                   )}
                   
                   <div className="playlist-info">
-                    <h4 className="playlist-name">{playlist.name}</h4>
+                    <h4 className="playlist-name">{decodeHtmlEntities(playlist.name)}</h4>
                     <p className="playlist-stats">
                       {playlist.tracks?.total || 0} tracks
                       {playlist.public !== undefined && (
@@ -166,16 +173,16 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
 
                 {playlist.description && (
                   <p className="playlist-description">
-                    {playlist.description.length > 100 
-                      ? `${playlist.description.substring(0, 100)}...`
-                      : playlist.description
+                    {decodeHtmlEntities(playlist.description).length > 100 
+                      ? `${decodeHtmlEntities(playlist.description).substring(0, 100)}...`
+                      : decodeHtmlEntities(playlist.description)
                     }
                   </p>
                 )}
 
                 <div className="playlist-card-footer">
                   <span className="owner-info">
-                    by {playlist.owner?.display_name || 'Unknown'}
+                    by {decodeHtmlEntities(playlist.owner?.display_name)}
                   </span>
                   {isSelected && (
                     <span className="selected-indicator">✓</span>
@@ -196,7 +203,7 @@ const PlaylistSelector = ({ playlists, selectedPlaylists, onPlaylistToggle }) =>
                 const playlist = playlists.find(p => p.id === id);
                 return playlist ? (
                   <span key={id} className="playlist-tag">
-                    {playlist.name}
+                    {decodeHtmlEntities(playlist.name)}
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
