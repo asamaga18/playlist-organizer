@@ -89,6 +89,8 @@ export const getSpotifyAuthUrl = () => {
   
   const authUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
   
+  console.log('Using REDIRECT_URI:', REDIRECT_URI);
+  console.log('Auth URL:', authUrl);
   return authUrl;
 };
 
