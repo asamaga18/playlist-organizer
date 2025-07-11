@@ -139,12 +139,17 @@ export const exchangeCodeForToken = async (code) => {
 
 // Get authorization code from URL
 export const getCodeFromUrl = () => {
-  const params = new URLSearchParams(window.location.search);
+  // For HashRouter: #/callback?code=...
+  const hash = window.location.hash; // e.g. "#/callback?code=..."
+  const queryString = hash.split('?')[1] || '';
+  const params = new URLSearchParams(queryString);
   return params.get('code');
 };
 
 // Get error from URL
 export const getErrorFromUrl = () => {
-  const params = new URLSearchParams(window.location.search);
+  const hash = window.location.hash;
+  const queryString = hash.split('?')[1] || '';
+  const params = new URLSearchParams(queryString);
   return params.get('error');
 };
