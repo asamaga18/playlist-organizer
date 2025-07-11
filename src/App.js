@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import SpotifyLogin from './components/Auth/SpotifyLogin';
 import PlaylistManager from './components/PlaylistManager/PlaylistManager';
 import CallbackHandler from './components/CallbackHandler';
@@ -11,6 +11,30 @@ const RouteDebugger = () => {
   console.log('Current path:', location.pathname);
   console.log('Current hash:', location.hash);
   console.log('Full location:', location);
+  return null;
+};
+
+// Fix for Spotify's non-standard redirect
+const BrokenSpotifyRedirectFix = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the path is "/%2Fcallback" or the hash is "#%2Fcallback", fix it
+    if (
+      location.pathname === '/%2Fcallback' ||
+      window.location.hash === '#%2Fcallback'
+    ) {
+      // Extract the code from the search or hash
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      if (code) {
+        // Redirect to the correct hash route
+        navigate(`/callback?code=${code}`, { replace: true });
+      }
+    }
+  }, [location, navigate]);
+
   return null;
 };
 
@@ -43,8 +67,9 @@ function App() {
 
   return (
     <Router>
+      <BrokenSpotifyRedirectFix />
+      <RouteDebugger />
       <div className="App">
-        <RouteDebugger />
         <Routes>
           <Route 
             path="/" 
