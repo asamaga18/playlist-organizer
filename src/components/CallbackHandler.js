@@ -9,9 +9,12 @@ const CallbackHandler = ({ onTokenReceived }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   useEffect(() => {
+    console.log('CallbackHandler mounted');
     const handleCallback = async () => {
       const code = getCodeFromUrl();
       const error = getErrorFromUrl();
+      console.log('Parsed code:', code);
+      console.log('Parsed error:', error);
       if (error) {
         setError(`Authentication failed: ${error}`);
         setIsAuthenticating(false);
@@ -21,12 +24,14 @@ const CallbackHandler = ({ onTokenReceived }) => {
       if (code) {
         try {
           setStatus('Exchanging code for access token...');
+          console.log('Attempting to exchange code for token...');
           const token = await exchangeCodeForToken(code);
           setStatus('Authentication successful! Redirecting...');
           setIsAuthenticating(false);
           onTokenReceived(token);
           navigate('/');
         } catch (err) {
+          console.error('Token exchange failed:', err);
           setError(`Token exchange failed: ${err.message}`);
           setIsAuthenticating(false);
           setTimeout(() => navigate('/'), 5000);

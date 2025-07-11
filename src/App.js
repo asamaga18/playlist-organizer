@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import SpotifyLogin from './components/Auth/SpotifyLogin';
 import PlaylistManager from './components/PlaylistManager/PlaylistManager';
 import CallbackHandler from './components/CallbackHandler';
 import './App.css';
+
+// Debug component to log the current path
+const RouteDebugger = () => {
+  const location = useLocation();
+  console.log('Current path:', location.pathname);
+  console.log('Current hash:', location.hash);
+  console.log('Full location:', location);
+  return null;
+};
 
 function App() {
   const [token, setToken] = useState(null);
@@ -35,6 +44,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <RouteDebugger />
         <Routes>
           <Route 
             path="/" 
@@ -49,6 +59,10 @@ function App() {
           <Route 
             path="/callback" 
             element={<CallbackHandler onTokenReceived={handleTokenReceived} />} 
+          />
+          <Route 
+            path="*" 
+            element={<div style={{color: 'red'}}>No route matched!</div>} 
           />
         </Routes>
       </div>
