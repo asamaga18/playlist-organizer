@@ -18,7 +18,7 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
   }
 
   const { track: songData } = track;
-  const progressPercentage = (progress.current / progress.total) * 100;
+  const progressPercentage = (progress.current / progress.total) * 100; 
 
   const formatDuration = (ms) => {
     const minutes = Math.floor(ms / 60000);
