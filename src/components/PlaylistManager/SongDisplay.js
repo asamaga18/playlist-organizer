@@ -85,43 +85,43 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
           )}
         </div>
 
-        <h2 className="song-title" title={songData.name}>{songData.name}</h2>
-        <p className="artist-name" title={songData.artists.map(a => a.name).join(', ')}>
-          👤 {songData.artists.map(a => a.name).join(', ')}
-        </p>
-        <p className="album-name" title={songData.album.name}>💿 {songData.album.name}</p>
-
-        {/* Listen on Spotify button */}
-        {songData.external_urls?.spotify && (
-          <a
-            href={songData.external_urls.spotify}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="spotify-link-button"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: '#1DB954',
-              color: '#fff',
-              padding: '8px 16px',
-              borderRadius: 24,
-              fontWeight: 600,
-              textDecoration: 'none',
-              margin: '12px 0',
-              fontSize: 16,
-              boxShadow: '0 2px 8px rgba(30,185,84,0.2)',
-              transition: 'background 0.2s',
-            }}
-            title="Listen on Spotify"
-          >
-            <svg width="22" height="22" viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="84" cy="84" r="84" fill="#1DB954"/>
-              <path d="M120.1 121.6c-2.1 3.5-6.6 4.6-10.1 2.5-27.7-16.9-62.6-20.7-103.7-11.2-4 0.9-8.1-1.6-9-5.6-0.9-4 1.6-8.1 5.6-9 44.6-10.1 82.2-6 112.1 12.5 3.5 2.1 4.6 6.6 2.5 10.1zm14.3-28.7c-2.6 4.2-8.1 5.6-12.3 3-31.8-19.4-80.3-25-117.8-13.5-4.6 1.3-9.4-1.3-10.7-5.9-1.3-4.6 1.3-9.4 5.9-10.7 41.8-12.2 94.1-6.1 129.2 15.1 4.2 2.6 5.6 8.1 3 12.3zm15.2-31.2c-37.1-22.1-98.2-24.2-133.2-13.1-5.1 1.6-10.5-1.2-12.1-6.3-1.6-5.1 1.2-10.5 6.3-12.1 38.7-12.1 104.2-9.7 145.7 14.1 5 3 6.6 9.5 3.6 14.5-3 5-9.5 6.6-14.5 3.6z" fill="#fff"/>
-            </svg>
-            Listen on Spotify
-          </a>
-        )}
+        {/* Song info header with title, artist, and Listen on Spotify button */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+          <div>
+            <h2 className="song-title" title={songData.name} style={{ marginBottom: 4 }}>{songData.name}</h2>
+            <p className="artist-name" title={songData.artists.map(a => a.name).join(', ')} style={{ margin: 0 }}>
+              👤 {songData.artists.map(a => a.name).join(', ')}
+            </p>
+            <p className="album-name" title={songData.album.name} style={{ margin: 0 }}>💿 {songData.album.name}</p>
+          </div>
+          {songData.external_urls?.spotify && (
+            <a
+              href={songData.external_urls.spotify}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="spotify-link-button"
+              style={{
+                background: '#1DB954',
+                color: '#fff',
+                padding: '10px 20px',
+                borderRadius: 24,
+                fontWeight: 600,
+                textDecoration: 'none',
+                fontSize: 16,
+                boxShadow: '0 2px 8px rgba(30,185,84,0.2)',
+                transition: 'background 0.2s',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-block',
+                marginLeft: 8,
+                marginTop: 4,
+              }}
+              title="Listen on Spotify"
+            >
+              Listen on Spotify
+            </a>
+          )}
+        </div>
 
         <div className="song-details">
           {songData.duration_ms && <span className="detail-badge">⏱️ {formatDuration(songData.duration_ms)}</span>}
