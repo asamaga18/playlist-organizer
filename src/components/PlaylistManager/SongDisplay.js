@@ -85,7 +85,7 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
           )}
         </div>
 
-        {/* Song info header with title, artist, and Listen on Spotify button */}
+        {/* Song info header with title, artist, and song details badges */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div>
             <h2 className="song-title" title={songData.name} style={{ marginBottom: 4 }}>{songData.name}</h2>
@@ -93,6 +93,13 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
               👤 {songData.artists.map(a => a.name).join(', ')}
             </p>
             <p className="album-name" title={songData.album.name} style={{ margin: 0 }}>💿 {songData.album.name}</p>
+            {/* Song details badges */}
+            <div className="song-details" style={{ marginTop: 8 }}>
+              {songData.duration_ms && <span className="detail-badge">⏱️ {formatDuration(songData.duration_ms)}</span>}
+              {songData.album.release_date && <span className="detail-badge">📅 {new Date(songData.album.release_date).getFullYear()}</span>}
+              {songData.popularity > 70 && <span className="detail-badge popular">🔥 {songData.popularity}% popular</span>}
+              {songData.explicit && <span className="detail-badge explicit">🚫 Explicit</span>}
+            </div>
           </div>
           {songData.external_urls?.spotify && (
             <a
@@ -123,23 +130,16 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
           )}
         </div>
 
-        <div className="song-details">
-          {songData.duration_ms && <span className="detail-badge">⏱️ {formatDuration(songData.duration_ms)}</span>}
-          {songData.album.release_date && <span className="detail-badge">📅 {new Date(songData.album.release_date).getFullYear()}</span>}
-          {songData.popularity > 70 && <span className="detail-badge popular">🔥 {songData.popularity}% popular</span>}
-          {songData.explicit && <span className="detail-badge explicit">🚫 Explicit</span>}
+        <div className="progress-section">
+          <div className="progress-text">Song {progress.current} of {progress.total}</div>
+          <div className="progress-subtext">{progress.processed} completed</div>
+
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${progressPercentage}%` }} />
+          </div>
+
+          <div className="progress-subtext">{Math.round(progressPercentage)}% complete</div>
         </div>
-      </div>
-
-      <div className="progress-section">
-        <div className="progress-text">Song {progress.current} of {progress.total}</div>
-        <div className="progress-subtext">{progress.processed} completed</div>
-
-        <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width: `${progressPercentage}%` }} />
-        </div>
-
-        <div className="progress-subtext">{Math.round(progressPercentage)}% complete</div>
       </div>
     </>
   );
