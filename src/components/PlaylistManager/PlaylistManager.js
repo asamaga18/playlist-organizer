@@ -154,7 +154,12 @@ const PlaylistManager = ({ token, onLogout }) => {
           spotifyApi.addTrackToPlaylist(playlistId, currentTrack.track.uri)
         )
       );
-      
+      // Update local allPlaylists state to increment track count for affected playlists
+      setAllPlaylists(prevPlaylists => prevPlaylists.map(p =>
+        selectedPlaylists.includes(p.id)
+          ? { ...p, tracks: { ...p.tracks, total: (p.tracks?.total || 0) + 1 } }
+          : p
+      ));
       setProcessedSongs(prev => prev + 1);
       
       if (currentTrackIndex < sourceTracks.length - 1) {
