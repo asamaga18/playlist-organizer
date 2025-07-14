@@ -5,31 +5,19 @@ import PlaylistManager from './components/PlaylistManager/PlaylistManager';
 import CallbackHandler from './components/CallbackHandler';
 import './App.css';
 
-// Debug component to log the current path
-const RouteDebugger = () => {
-  const location = useLocation();
-  console.log('Current path:', location.pathname);
-  console.log('Current hash:', location.hash);
-  console.log('Full location:', location);
-  return null;
-};
-
 // Fix for Spotify's non-standard redirect
 const BrokenSpotifyRedirectFix = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If the path is "/%2Fcallback" or the hash is "#%2Fcallback", fix it
     if (
       location.pathname === '/%2Fcallback' ||
       window.location.hash === '#%2Fcallback'
     ) {
-      // Extract the code from the search or hash
       const params = new URLSearchParams(window.location.search);
       const code = params.get('code');
       if (code) {
-        // Redirect to the correct hash route
         navigate(`/callback?code=${code}`, { replace: true });
       }
     }
@@ -43,7 +31,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored token
     const storedToken = localStorage.getItem('spotify_token');
     if (storedToken) {
       setToken(storedToken);
@@ -68,7 +55,6 @@ function App() {
   return (
     <Router>
       <BrokenSpotifyRedirectFix />
-      <RouteDebugger />
       <div className="App">
         <Routes>
           <Route 

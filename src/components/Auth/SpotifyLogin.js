@@ -12,7 +12,6 @@ const SpotifyLogin = () => {
       return;
     }
     
-    alert('Check the console for REDIRECT_URI and Auth URL before continuing. Click OK to proceed to Spotify login.');
     window.location.href = authUrl;
   };
 
