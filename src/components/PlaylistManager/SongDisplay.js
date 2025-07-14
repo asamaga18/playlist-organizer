@@ -47,7 +47,7 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="source-playlist-badge">
         📂 From: {sourcePlaylistName}
       </div>
@@ -129,20 +129,19 @@ const SongDisplay = ({ track, progress, sourcePlaylistName }) => {
           {songData.popularity > 70 && <span className="detail-badge popular">🔥 {songData.popularity}% popular</span>}
           {songData.explicit && <span className="detail-badge explicit">🚫 Explicit</span>}
         </div>
-        </div>
-
-        <div className="progress-section">
-          <div className="progress-text">Song {progress.current} of {progress.total}</div>
-          <div className="progress-subtext">{progress.processed} completed</div>
-
-          <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: `${progressPercentage}%` }} />
-          </div>
-
-          <div className="progress-subtext">{Math.round(progressPercentage)}% complete</div>
-        </div>
       </div>
-    </div>
+
+      <div className="progress-section">
+        <div className="progress-text">Song {progress.current} of {progress.total}</div>
+        <div className="progress-subtext">{progress.processed} completed</div>
+
+        <div className="progress-bar-container">
+          <div className="progress-bar" style={{ width: `${progressPercentage}%` }} />
+        </div>
+
+        <div className="progress-subtext">{Math.round(progressPercentage)}% complete</div>
+      </div>
+    </>
   );
 };
 
