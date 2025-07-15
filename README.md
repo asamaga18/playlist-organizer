@@ -4,11 +4,11 @@ A personal web app to help you organize your Spotify playlists, one song at a ti
 
 ## What is this?
 
-This is a project I built for myself to make it easier to move songs between my Spotify playlists. It lets you pick a playlist, review each song, and quickly add it to any of your other playlists—all in a clean, modern interface.
+This is a project I built for myself to make it easier to move songs between my Spotify playlists. It lets you pick a playlist, review each song, and quickly add it to any of your other playlists, all in a clean, modern interface.
 
 ## Features
 
-- **Spotify Login**: Securely log in with your Spotify account (PKCE flow).
+- **Spotify Login**: Securely log in with your Spotify account.
 - **Pick a Source Playlist**: Choose any of your playlists to organize.
 - **Song-by-Song Review**: Go through each song and decide which other playlists to add it to.
 - **Curate Target Playlists**: (Optional) For each source playlist, you can choose which playlists show up as targets, so you only see the ones you care about.
@@ -29,34 +29,7 @@ This is a project I built for myself to make it easier to move songs between my 
     - Open the song in Spotify
 5. **Done!**
 
-## Getting Started (Local Setup)
-
-1. **Clone this repo**
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-3. **Set up your Spotify API credentials**
-   - Create a `.env` file with your Spotify client ID and redirect URI:
-     ```env
-     REACT_APP_SPOTIFY_CLIENT_ID=your_spotify_client_id
-     REACT_APP_REDIRECT_URI=http://localhost:3000/callback
-     ```
-   - Register your redirect URI in your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications).
-4. **Start the app**
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
-5. **Open [http://localhost:3000](http://localhost:3000)** in your browser.
-
 ## Tech Stack
 - React (hooks, functional components)
 - Spotify Web API (OAuth PKCE)
 - Modern CSS (flexbox, grid, custom properties)
-
-## License
-MIT
